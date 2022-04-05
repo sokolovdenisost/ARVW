@@ -1,0 +1,2 @@
+port: "8000"
+mongo_uri: "mongodb+srv://admin:admin@cluster0.r4hcg.mongodb.net/ARVW"
