@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
+	vpr "example"
+
 	"github.com/gin-gonic/gin"
-	vpr "github.com/sokolovdenisost/VPR"
 )
 
 func (h *Handler) SignUpHandler(c *gin.Context) {

@@ -1,7 +1,8 @@
 package repository
 
 import (
-	vpr "github.com/sokolovdenisost/VPR"
+	vpr "example"
+
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -12,6 +13,8 @@ type Authorization interface {
 }
 
 type Tests interface {
+	CreateTestsRepo(reqBody vpr.Test) *vpr.Error
+	GetTestsRepo() (*[]vpr.Test, *vpr.Error)
 }
 
 type Repository struct {
@@ -22,5 +25,6 @@ type Repository struct {
 func NewRepository(db *mongo.Database) *Repository {
 	return &Repository{
 		Authorization: NewAuth(db.Collection("users")),
+		Tests:         NewTests(db.Collection("tests")),
 	}
 }

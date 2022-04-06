@@ -3,13 +3,14 @@ package service
 import (
 	"crypto/sha1"
 	"errors"
+	"example/pkg/repository"
 	"fmt"
 	"net/http"
 	"time"
 
+	vpr "example"
+
 	"github.com/dgrijalva/jwt-go"
-	vpr "github.com/sokolovdenisost/VPR"
-	"github.com/sokolovdenisost/VPR/pkg/repository"
 )
 
 const (
@@ -17,10 +18,6 @@ const (
 	jwtKey   = "my_secret_key"
 	tokenTTL = 12 * time.Hour
 )
-
-func SetError(status int, message string) *vpr.Error {
-	return &vpr.Error{Status: status, Message: message}
-}
 
 type tokenClaims struct {
 	Id string

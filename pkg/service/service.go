@@ -1,8 +1,8 @@
 package service
 
 import (
-	vpr "github.com/sokolovdenisost/VPR"
-	"github.com/sokolovdenisost/VPR/pkg/repository"
+	vpr "example"
+	"example/pkg/repository"
 )
 
 type Authorization interface {
@@ -12,12 +12,19 @@ type Authorization interface {
 	GetUserByIdService(id string) (*vpr.User, *vpr.Error)
 }
 
+type Tests interface {
+	CreateTestService(reqBody vpr.Test) *vpr.Error
+	GetTestsService() (*[]vpr.Test, *vpr.Error)
+}
+
 type Service struct {
 	Authorization
+	Tests
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
+		Tests:         NewTestsService(repos.Tests),
 	}
 }

@@ -3,7 +3,8 @@ package repository
 import (
 	"net/http"
 
-	vpr "github.com/sokolovdenisost/VPR"
+	vpr "example"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -11,10 +12,6 @@ import (
 
 type Auth struct {
 	db *mongo.Collection
-}
-
-func SetError(status int, message string) *vpr.Error {
-	return &vpr.Error{Status: status, Message: message}
 }
 
 func NewAuth(db *mongo.Collection) *Auth {

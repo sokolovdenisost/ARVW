@@ -4,8 +4,9 @@ import (
 	"net/http"
 	"strings"
 
+	vpr "example"
+
 	"github.com/gin-gonic/gin"
-	vpr "github.com/sokolovdenisost/VPR"
 )
 
 const userCTX = "userID"

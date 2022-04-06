@@ -1,11 +1,12 @@
 package main
 
 import (
+	vpr "example"
+	"example/pkg/handler"
+	"example/pkg/repository"
+	"example/pkg/service"
+
 	"github.com/sirupsen/logrus"
-	vpr "github.com/sokolovdenisost/VPR"
-	"github.com/sokolovdenisost/VPR/pkg/handler"
-	"github.com/sokolovdenisost/VPR/pkg/repository"
-	"github.com/sokolovdenisost/VPR/pkg/service"
 	"github.com/spf13/viper"
 )
 
