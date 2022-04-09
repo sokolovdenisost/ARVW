@@ -6,6 +6,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+const ErrorNotFound = "mongo: no documents in result"
+
 type Authorization interface {
 	GetUserByEmailRepo(email string) (*vpr.User, *vpr.Error)
 	CreateUserRepo(reqBody vpr.User) *vpr.Error
@@ -13,8 +15,10 @@ type Authorization interface {
 }
 
 type Tests interface {
-	CreateTestsRepo(reqBody vpr.Test) *vpr.Error
+	CreateTestsRepo(test vpr.Test) *vpr.Error
 	GetTestsRepo() (*[]vpr.Test, *vpr.Error)
+	GetTestByIdRepo(id string, answers bool) (*vpr.Test, *vpr.Error)
+	SendAnswersRepo(id string, result vpr.Result) *vpr.Error
 }
 
 type Repository struct {
@@ -25,6 +29,6 @@ type Repository struct {
 func NewRepository(db *mongo.Database) *Repository {
 	return &Repository{
 		Authorization: NewAuth(db.Collection("users")),
-		Tests:         NewTests(db.Collection("tests")),
+		Tests:         NewTests(db.Collection("tests"), db.Collection("results")),
 	}
 }

@@ -15,6 +15,8 @@ type Authorization interface {
 type Tests interface {
 	CreateTestService(reqBody vpr.Test) *vpr.Error
 	GetTestsService() (*[]vpr.Test, *vpr.Error)
+	GetTestByIdService(id string, answers bool) (*vpr.Test, *vpr.Error)
+	SendAnswersService(id string, result vpr.Result) *vpr.Error
 }
 
 type Service struct {
