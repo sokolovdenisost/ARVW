@@ -2,7 +2,6 @@ package repository
 
 import (
 	vpr "example"
-	"fmt"
 	"net/http"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -12,19 +11,14 @@ import (
 )
 
 type TestsRepo struct {
-	db       *mongo.Collection
-	dbResult *mongo.Collection
+	db *mongo.Collection
 }
 
-func NewTests(db *mongo.Collection, dbResult *mongo.Collection) *TestsRepo {
-	return &TestsRepo{
-		db:       db,
-		dbResult: dbResult,
-	}
+func NewTests(db *mongo.Collection) *TestsRepo {
+	return &TestsRepo{db: db}
 }
 
 func (r *TestsRepo) CreateTestsRepo(test vpr.Test) *vpr.Error {
-	fmt.Print(test)
 	_, err := r.db.InsertOne(nil, test)
 
 	if err != nil {
@@ -65,7 +59,7 @@ func (r *TestsRepo) GetTestByIdRepo(id string, answers bool) (*vpr.Test, *vpr.Er
 	}
 
 	if !isValid {
-		return nil, SetError(http.StatusNotFound, "Is not a valid ObjectID")
+		return nil, SetError(http.StatusBadRequest, "Is not a valid ObjectID")
 	}
 
 	options := options.FindOne()
@@ -93,8 +87,4 @@ func (r *TestsRepo) GetTestByIdRepo(id string, answers bool) (*vpr.Test, *vpr.Er
 	}
 
 	return &test, nil
-}
-
-func (s *TestsRepo) SendAnswersRepo(id string, result vpr.Result) *vpr.Error {
-	return nil
 }

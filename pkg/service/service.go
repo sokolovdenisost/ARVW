@@ -16,17 +16,23 @@ type Tests interface {
 	CreateTestService(reqBody vpr.Test) *vpr.Error
 	GetTestsService() (*[]vpr.Test, *vpr.Error)
 	GetTestByIdService(id string, answers bool) (*vpr.Test, *vpr.Error)
-	SendAnswersService(id string, result vpr.Result) *vpr.Error
+}
+
+type Results interface {
+	CreateResultService(body vpr.Result) *vpr.Error
+	GetResultsService(id string) (*[]vpr.Result, *vpr.Error)
 }
 
 type Service struct {
 	Authorization
 	Tests
+	Results
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
 		Tests:         NewTestsService(repos.Tests),
+		Results:       NewResultsService(repos.Results),
 	}
 }

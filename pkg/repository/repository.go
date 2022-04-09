@@ -18,17 +18,23 @@ type Tests interface {
 	CreateTestsRepo(test vpr.Test) *vpr.Error
 	GetTestsRepo() (*[]vpr.Test, *vpr.Error)
 	GetTestByIdRepo(id string, answers bool) (*vpr.Test, *vpr.Error)
-	SendAnswersRepo(id string, result vpr.Result) *vpr.Error
+}
+
+type Results interface {
+	CreateResultRepo(body vpr.Result) *vpr.Error
+	GetResultsRepo(id string) (*[]vpr.Result, *vpr.Error)
 }
 
 type Repository struct {
 	Authorization
 	Tests
+	Results
 }
 
 func NewRepository(db *mongo.Database) *Repository {
 	return &Repository{
 		Authorization: NewAuth(db.Collection("users")),
-		Tests:         NewTests(db.Collection("tests"), db.Collection("results")),
+		Tests:         NewTests(db.Collection("tests")),
+		Results:       NewResults(db.Collection("results")),
 	}
 }

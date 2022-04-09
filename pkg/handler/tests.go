@@ -69,25 +69,3 @@ func (h *Handler) GetTestByIdWithAnswersHandler(c *gin.Context) {
 		"test": test,
 	})
 }
-
-func (h *Handler) SendAnswersHandler(c *gin.Context) {
-	id := c.Param("id")
-	var reqBody vpr.Result
-
-	if err := c.BindJSON(&reqBody); err != nil {
-		newErrorResponse(c, http.StatusInternalServerError, err.Error())
-		return
-	}
-
-	err := h.services.Tests.SendAnswersService(id, reqBody)
-
-	if err != nil {
-		newErrorResponse(c, err.Status, err.Message)
-		return
-	}
-
-	c.JSON(http.StatusOK, map[string]interface{}{
-		"result":  reqBody,
-		"message": "Answers sent successfully",
-	})
-}

@@ -24,15 +24,20 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		auth.POST("sign-in", h.SignInHandler)
 	}
 
-	api := router.Group("/api")
+	api := router.Group("/api", h.userIdentity)
 	{
 		tests := api.Group("/tests")
 		{
 			tests.GET("/", h.GetTestsHandler)
 			tests.GET("/:id", h.GetTestByIdHandler)
 			tests.GET("/:id/answers", h.GetTestByIdWithAnswersHandler)
-			tests.POST("/:id/answers", h.SendAnswersHandler)
 			tests.POST("/create", h.CreateTestHandler)
+		}
+
+		results := api.Group("/results")
+		{
+			results.GET("/:id", h.GetResultsHandler)
+			results.POST("/create", h.CreateResultHandler)
 		}
 	}
 
