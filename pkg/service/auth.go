@@ -16,7 +16,7 @@ import (
 const (
 	salt     = "123mfsamuhlcxvoiy"
 	jwtKey   = "my_secret_key"
-	tokenTTL = 12 * time.Hour
+	tokenTTL = 168 * time.Hour
 )
 
 type tokenClaims struct {
@@ -109,7 +109,7 @@ func (s *AuthService) ParseTokenService(accessToken string) (string, *vpr.Error)
 	})
 
 	if err != nil {
-		return "", SetError(http.StatusInternalServerError, err.Error())
+		return "", SetError(http.StatusUnauthorized, err.Error())
 	}
 
 	claims, ok := token.Claims.(*tokenClaims)

@@ -21,8 +21,8 @@ type Tests interface {
 }
 
 type Results interface {
-	CreateResultRepo(body vpr.Result) *vpr.Error
-	GetResultsRepo(id string) (*[]vpr.Result, *vpr.Error)
+	CreateResultRepo(body vpr.Result) (*string, *vpr.Error)
+	GetResultsRepo(id string) (*[]vpr.ResultResponse, *vpr.Error)
 }
 
 type Repository struct {

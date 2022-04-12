@@ -30,6 +30,7 @@ func (h *Handler) SignUpHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
+		"status":  200,
 		"message": "Success registration on this service",
 	})
 }
@@ -50,7 +51,8 @@ func (h *Handler) SignInHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"token": token,
+		"status": 200,
+		"token":  token,
 	})
 }
 
@@ -75,6 +77,7 @@ func (h *Handler) GetAuthHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"user": user,
+		"status": 200,
+		"user":   user,
 	})
 }

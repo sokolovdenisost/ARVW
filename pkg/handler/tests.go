@@ -23,6 +23,7 @@ func (h *Handler) CreateTestHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
+		"status":  200,
 		"message": "Successfully created a test",
 	})
 }
@@ -36,7 +37,8 @@ func (h *Handler) GetTestsHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"tests": tests,
+		"status": 200,
+		"tests":  tests,
 	})
 }
 
@@ -51,7 +53,8 @@ func (h *Handler) GetTestByIdHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"test": test,
+		"status": 200,
+		"test":   test,
 	})
 }
 
@@ -66,6 +69,7 @@ func (h *Handler) GetTestByIdWithAnswersHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"test": test,
+		"status": 200,
+		"test":   test,
 	})
 }

@@ -18,6 +18,7 @@ func (h *Handler) GetResultsHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
+		"status":  200,
 		"results": results,
 	})
 }
@@ -26,11 +27,11 @@ func (h *Handler) CreateResultHandler(c *gin.Context) {
 	var body vpr.Result
 
 	if errJSON := c.BindJSON(&body); errJSON != nil {
-		newErrorResponse(c, http.StatusInternalServerError, errJSON.Error())
+		newErrorResponse(c, http.StatusBadRequest, errJSON.Error())
 		return
 	}
 
-	err := h.services.Results.CreateResultService(body)
+	id, err := h.services.Results.CreateResultService(body)
 
 	if err != nil {
 		newErrorResponse(c, err.Status, err.Message)
@@ -38,6 +39,8 @@ func (h *Handler) CreateResultHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
+		"status":  200,
 		"message": "Successfully completed the test",
+		"id":      id,
 	})
 }

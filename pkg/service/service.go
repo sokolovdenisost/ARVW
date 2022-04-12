@@ -19,8 +19,8 @@ type Tests interface {
 }
 
 type Results interface {
-	CreateResultService(body vpr.Result) *vpr.Error
-	GetResultsService(id string) (*[]vpr.Result, *vpr.Error)
+	CreateResultService(body vpr.Result) (*string, *vpr.Error)
+	GetResultsService(id string) (*[]vpr.ResultResponse, *vpr.Error)
 }
 
 type Service struct {
